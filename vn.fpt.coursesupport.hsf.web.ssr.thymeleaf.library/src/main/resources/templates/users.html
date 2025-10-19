@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> 
+  <head>
+  	<title>Library Management</title>
+  </head>
+  <body>
+    <h1 style="text-align: center;">Quản lý người đọc</h1><br/>
+    
+    <div align="center">
+	    <form th:action="@{/users}" th:object="${newUser}" method="post">
+			<label style="display: inline-block; width: 70px;">Tên:</label> 
+			<input type="text" th:field="*{name}" required /> 
+			<br>
+			
+			<label style="display: inline-block; width:70px;">Năm sinh:</label> 
+			<input type="text" th:field="*{dob}" required /> 
+			<br>
+			
+			<label style="display: inline-block; width:70px;">Số dư:</label> 
+			<input type="text" th:field="*{balance}" required /> 
+			<br>		
+						
+			<label style="display: inline-block; width: 70px;">Quốc tịch:</label> 
+			<input type="text" th:field="*{nationality}" required /> 
+			<br>
+			
+			<label style="display: inline-block; width: 70px;">Tài khoản:</label>
+			<select th:field="*{membership}">
+		        <option th:value='0'>Mặc định</option>
+		        <option th:value='1'>Nâng cao</option>
+		        <option th:value='2'>Ưu đãi</option>
+		    </select>
+			<br><br>
+					
+			<button type="submit">
+			   <img th:src="@{/icons/add16x16.png}"/> Thêm người đọc
+			</button>
+		</form>
+    </div>
+    <br>
+    
+    <div align="center">
+      <table style="border: 2px solid black;" border="1">
+        <tr>
+          <th style="width: 15px; min-width: 15px;">Id</th>
+          <th style="width: 130px; min-width: 100px;">Name</th>
+          <th style="width: 100px; min-width: 100px;">DOB</th>
+          <th style="width: 100px; min-width: 100px;">Membership</th>
+          <th style="width: 120px; min-width: 120px;">Balance</th>
+          <th style="width: 100px; min-width: 100px;">Actions</th>
+        </tr>
+        <tr th:each="user:${users}">
+        	<td th:text="${user.id}">-1</td>
+        	<td th:text="${user.name}">unknown</td>
+        	<td th:text="${user.dob}">unknown</td>
+        	<td th:switch="${user.membership}">
+        		<span th:case='0'>Mặc định</span>
+        		<span th:case='1'>Nâng cao</span>
+        		<span th:case='2'>Ưu đãi</span>
+        	</td>
+        	<td th:text="${user.balance}">unknown</td>
+			<td>
+				<form style="display: inline-block" th:action="@{/users/delete/{id}(id=${user.id})}" method="post">
+					<button>Xóa</button>
+			  	</form>
+			</td>
+        </tr>
+      </table>
+      <br/>
+    </div>
+    <div align="center">
+	  <form style="display: inline-block" th:action="@{/managers/0}" method="get">
+   		<button>
+ 		  <img th:src="@{/icons/back16x16.png}"/>  Quay lại
+   		</button>
+	  </form>
+    </div>
+  </body>
+</html>
+

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> 
+  <head>
+  	<title>Library Management</title>
+  </head>
+  <body>
+    <h1 style="text-align: center;">Quản lý đầu sách</h1>
+    
+    
+    <div align="center">
+	    <form th:action="@{/books}" th:object="${newBook}" method="post">
+			<label style="display: inline-block; width: 150px;">Tên:</label> 
+			<input type="text" th:field="*{name}" required /> 
+			<br>
+			
+			<label style="display: inline-block; width:150px;">Ngày phát hành:</label> 
+			<input type="text" th:field="*{publishDate}" required /> 
+			<br>
+			
+			<label style="display: inline-block; width:150px;">Nhà phát hành:</label> 
+			<input type="text" th:field="*{publisher}" required /> 
+			<br>
+			
+			<label style="display: inline-block; width: 150px;">Tồn kho:</label> 
+			<input type="text" th:field="*{available}" required /> 
+			<br><br>
+			
+			<div align="center" style="width: 300px; height: 75px; overflow: auto;">
+				<label style="display: inline-block; width: 150px;">Tác giả:</label>
+				<select th:field="*{authorIdList}" multiple="multiple">
+			        <option th:each="author : ${authors}"
+			                th:value="${author.id}" 
+			                th:text="${author.name}">
+			        </option>
+			    </select>
+			</div>
+			<br><br>
+			
+			<button type="submit">
+			   <img th:src="@{/icons/add16x16.png}"/> Thêm sách
+			</button>
+		</form>
+    </div>
+
+	<br><br>
+    <div align="center">
+      <table style="border: 2px solid black;" border="1">
+        <tr>
+          <th style="width: 15px; min-width: 15px;">Id</th>
+          <th style="width: 180px; min-width: 80px;">Name</th>
+          <th style="width: 100px; min-width: 100px;">ISBN</th>
+          <th style="width: 180px; min-width: 80px;">Publisher</th>
+          <th style="width: 80px; min-width: 80px;">Available</th>
+          <th style="width: 80px; min-width: 80px;">Authors</th>
+          <th style="width: 120px; min-width: 120px;">Actions</th>
+        </tr>
+        <tr th:each="book:${books}">
+          <td th:text="${book.id}">-1</td>
+          <td th:text="${book.name}">Unknown</td>
+          <td>12345678</td>
+          <td th:text="${book.publisher}">Folio</td>
+          <td th:text="${book.available}">-1</td>
+		  <td>
+	 		<ul>
+              <li th:each="authorName, iter : ${book.authorNameList}">
+		        <a th:href="@{/authors/{id}(id=book.authorIdList[iter.index])}" 
+			           th:text="${authorName}">Unknown</a>
+    	      </li>
+            </ul>
+		  </td>
+          <td>
+			<form style="display: inline-block" th:action="@{/books/delete/{id}(id=${book.id})}" method="post">
+				<button>Xóa</button>
+		  	</form>
+		  </td>
+        </tr>
+      </table>
+    </div>
+	<div align="center">
+	  <form style="display: inline-block" th:action="@{/managers/0}" method="get">
+   		<button>
+ 		  <img th:src="@{/icons/back16x16.png}"/>  Quay lại
+   		</button>
+	  </form>
+    </div>
+  </body>
+</html>
+

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> 
+  <head>
+  	<title>Library Management</title>
+  </head>
+  <body>
+    <h1 style="text-align: center;">Quản lý thư viện</h1><br/>
+    
+    <div align="center">
+      <label style="display: inline-block; width: 50px;">Id:</label>
+      <input type="text" id="id" name="id" th:value="${manager.id}" readonly>
+      <button type="button">Edit</button>
+      <br/>
+        
+      <label style="display: inline-block; width: 50px;">Name:</label>
+      <input type="text" id="name" name="name" th:value="${manager.name}" readonly>
+      <button type="button">Edit</button>
+      <br/>
+
+
+      <label style="display: inline-block; width: 50px;">DoB:</label>
+      <input type="text" id="dob" name="dob" th:value="${manager.dob}" readonly>
+      <button type="button">Edit</button>
+      <br/>
+    </div>
+    <br/>
+    <br/>
+    <div align="center">
+    	<form style="display: inline-block" th:action="@{/books}" method="get">
+    		<button class="btn btn-success" style="width: 85px; height: 35px;">Sách</button>
+		</form>
+        <form style="display: inline-block" th:action="@{/authors}" method="get">
+    		<button class="btn btn-success" style="width: 85px; height: 35px;">Tác giả</button>
+		</form>
+		<form style="display: inline-block" th:action="@{/users}" method="get">
+    		<button class="btn btn-success" style="width: 85px; height: 35px;">Người đọc</button>
+		</form>
+		<form style="display: inline-block" th:action="@{/loans}" method="get">
+    		<button class="btn btn-success" style="width: 85px; height: 35px;">Mượn/Trả</button>
+		</form>
+		<form style="display: inline-block" th:action="@{/search}" method="get">
+    		<button class="btn btn-success" style="width: 85px; height: 35px;">Tìm kiếm</button>
+		</form>
+    </div>
+  </body>
+</html>

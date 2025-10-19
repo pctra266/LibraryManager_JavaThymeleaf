@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> 
+  <head>
+  	<title>Library Management</title>
+  </head>
+  <body>
+    <h1 style="text-align: center;">Quản lý mượn sách</h1><br/>
+    
+    <div align="center">
+	    <form th:action="@{/loans}" th:object="${newLoan}" method="post">
+			<label style="display: inline-block; width: 70px;">Người mượn:</label>
+			<select th:field="*{userId}">
+		        <option th:each="user : ${users}"
+		                th:value="${user.id}" 
+		                th:text="${user.name}">
+		        </option>
+		    </select>
+			
+			<label style="display: inline-block; width: 70px;">Sách:</label>
+			<select th:field="*{bookId}">
+		        <option th:each="book : ${books}"
+		                th:value="${book.id}" 
+		                th:text="${book.name}">
+		        </option>
+		    </select>
+			
+			<label style="display: inline-block; width:100px;">Ngày hẹn trả:</label> 
+			<input type="text" th:field="*{dueDate}" required /> 
+			<br><br>
+					
+			<button type="submit">
+			   <img th:src="@{/icons/add16x16.png}"/> Mượn sách
+			</button>
+		</form>
+    </div>
+    <br><br>
+        
+    <div align="center">
+      <table style="border: 2px solid black;" border="1">
+        <tr>
+          <th style="width: 15px; min-width: 15px;">Id</th>
+          <th style="width: 130px; min-width: 100px;">Người mượn</th>
+          <th style="width: 100px; min-width: 100px;">Sách</th>
+          <th style="width: 100px; min-width: 100px;">Ngày mượn</th>
+          <th style="width: 100px; min-width: 100px;">Hạn trả</th>
+          <th style="width: 100px; min-width: 100px;">Ngày trả</th>
+          <th style="width: 100px; min-width: 100px;">Actions</th>
+        </tr>
+        
+        <tr th:each="loan:${loans}">
+        	<td th:text="${loan.id}">-1</td>
+        	<td th:text="${loan.userName}">unknown</td>
+        	<td th:text="${loan.bookName}">unknown</td>
+        	<td th:text="${loan.creationDate}">unknown</td>
+        	<td th:text="${loan.dueDate}">unknown</td>
+        	<td th:text="${loan.returnDate}">unknown</td>        	
+			<td>
+				<form style="display: inline-block" th:action="@{/loans/return/{id}(id=${loan.id})}" method="post">
+					<button>Trả sách</button>
+			  	</form>
+			</td>
+        </tr>
+      </table>
+      <br/>
+    </div>
+	<br><br>
+    
+    <div align="center">
+	  <form style="display: inline-block" th:action="@{/managers/0}" method="get">
+   		<button>
+ 		  <img th:src="@{/icons/back16x16.png}"/>  Quay lại
+   		</button>
+	  </form>
+    </div>
+  </body>
+</html>
+
