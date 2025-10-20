@@ -6,9 +6,9 @@
   <body>
     <h1 style="text-align: center;">Quản lý tác giả</h1><br/><br/>
     <br><br>
-    <div align="center">
-	    <form th:action="@{/loans}" th:object="${newLoan}" method="post">
-			<label style="display: inline-block; width: 70px;">Tên:</label> 
+    <div align="center">	
+		<form th:action="@{/authors}" th:object="${newAuthor}" method="post">
+		<label style="display: inline-block; width: 70px;">Tên:</label>
 			<input type="text" th:field="*{name}" required /> 
 			<br>
 			
